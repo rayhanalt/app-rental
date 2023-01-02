@@ -93,8 +93,8 @@
                             <span class="label-text">Harga Sewa</span>
                             <span class="label-text-alt"></span>
                         </label>
-                        <input name="harga_sewa" type="number" placeholder="Type here" value="{{ old('harga_sewa') }}"
-                            class="input-bordered input w-full max-w-full" />
+                        <input name="harga_sewa" id="harga_sewa" type="text" placeholder="Type here"
+                            value="{{ old('harga_sewa') }}" class="input-bordered input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">

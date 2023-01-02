@@ -20,7 +20,7 @@
 
             {{-- content --}}
             <div class="flex w-full flex-col">
-                <div class="card rounded-box ml-2 mr-2 mt-2 grid h-[530px] place-items-stretch">
+                <div class="card rounded-box ml-2 mr-2 mt-2 grid h-[530px] place-content-start place-items-stretch">
                     @yield('content')
                 </div>
             </div>

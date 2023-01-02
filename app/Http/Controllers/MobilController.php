@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mobil;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-
+use Illuminate\Support\Facades\File;
 
 class MobilController extends Controller
 {
@@ -128,6 +128,7 @@ class MobilController extends Controller
      */
     public function destroy(Mobil $mobil)
     {
+        File::delete(public_path('gambar/' . $mobil->gambar));
         $mobil->delete();
 
         return redirect()->back()->with('success', 'Data has been deleted!');
