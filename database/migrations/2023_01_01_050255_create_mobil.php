@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('mobil', function (Blueprint $table) {
             $table->id();
             $table->string('kode_mobil')->unique();
+            $table->string('nopol')->unique();
             $table->string('merk');
             $table->string('model');
             $table->date('tahun');
             $table->string('warna');
-            $table->float('harga_sewa');
+            $table->integer('harga_sewa');
             $table->string('gambar');
             $table->timestamps();
         });
