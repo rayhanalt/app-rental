@@ -16,9 +16,7 @@ class MobilController extends Controller
      */
     public function index()
     {
-        return view('mobil.index', [
-            'data' => Mobil::get(),
-        ]);
+        return view('mobil.index');
     }
 
     /**
@@ -105,17 +103,49 @@ class MobilController extends Controller
      */
     public function update(Request $request, Mobil $mobil)
     {
-        $validasi = $request->validate([
+        $rules = [
             'nopol' => 'required|unique:mobil,nopol',
             'merk' => 'required',
             'model' => 'required',
             'tahun' => 'required',
             'warna' => 'required',
             'harga_sewa' => 'required',
-            'gambar' => 'required',
-        ]);
+            'gambar' => 'image|file|max:2048',
+        ];
 
-        $mobil->update($validasi);
+        $validasi = $request->validate($rules);
+
+        if ($request->file('gambar')) {
+            if ($mobil->gambar) {
+                File::delete(public_path('gambar/' . $mobil->gambar));
+            }
+            // Mendapatkan file gambar yang diupload
+            $validasi['gambar'] = $request->file('gambar');
+
+            // Menyimpan file ke direktori public/gambar
+            $validasi['gambar']->move(public_path('gambar'), $validasi['gambar']->getClientOriginalName());
+            $mobil->update([
+                'nopol' => $validasi['nopol'],
+                'merk' => $validasi['merk'],
+                'model' => $validasi['model'],
+                'tahun' => $validasi['tahun'],
+                'warna' => $validasi['warna'],
+                'harga_sewa' => $validasi['harga_sewa'],
+                'gambar' => $validasi['gambar']->getClientOriginalName()
+            ]);
+        } else {
+            $mobil->update([
+                'nopol' => $validasi['nopol'],
+                'merk' => $validasi['merk'],
+                'model' => $validasi['model'],
+                'tahun' => $validasi['tahun'],
+                'warna' => $validasi['warna'],
+                'harga_sewa' => $validasi['harga_sewa'],
+            ]);
+        }
+
+
+
 
         return redirect('/mobil')->with('success', 'Data has been updated!')->withInput();
     }

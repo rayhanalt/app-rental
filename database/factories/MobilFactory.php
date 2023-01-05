@@ -18,14 +18,26 @@ class MobilFactory extends Factory
      */
     public function definition()
     {
+        // Mendapatkan nama-nama file gambar yang ada di direktori public/gambar
+        $nama_file = scandir(public_path('gambar'));
+
+        // Menghapus elemen array yang tidak diperlukan
+        unset($nama_file[0]); // Menghapus elemen '.'
+        unset($nama_file[1]); // Menghapus elemen '..'
+
+        // Membuat data fakta untuk factory
+        $data_fakta = [];
+        foreach ($nama_file as $file) {
+            $data_fakta[] = ['gambar' => $file];
+        }
         return [
             'nopol' => fake()->unique()->regexify('[A-Z]{3}[0-9]{3}'),
-            'merk' => fake()->unique()->firstName(),
-            'model' => fake()->company,
+            'merk' => fake()->randomElement(['Toyota', 'Honda', 'Suzuki', 'Mitsubishi']),
+            'model' => fake()->randomElement(['Avanza', 'Innova', 'Xenia', 'Ertiga']),
             'tahun' => fake()->date(),
-            'warna' => fake()->colorName(),
-            'harga_sewa' => fake()->numberBetween(10000, 1000000),
-            'gambar' => Str::random(10),
+            'warna' => fake()->randomElement(['Merah', 'Hitam', 'Putih', 'Biru']),
+            'harga_sewa' => fake()->numberBetween(100000, 200000),
+            'gambar' => fake()->randomElement($data_fakta)['gambar'],
         ];
     }
 }

@@ -107,9 +107,10 @@
                     <div class="form-control w-full max-w-full">
                         <label class="label">
                             <span class="label-text">Gambar</span>
-                            <span class="label-text-alt"></span>
+                            <span class="label-text-alt"><img src="#" alt="Preview Gambar" id="preview-gambar"
+                                    width="100px"></span>
                         </label>
-                        <input name="gambar" type="file" value="{{ old('gambar') }}"
+                        <input name="gambar" type="file" value="{{ old('gambar') }}" id="gambar" accept="image/*"
                             class="file-input-bordered file-input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt"></span>
