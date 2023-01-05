@@ -8,11 +8,21 @@
         </label>
     </div>
     <div class="flex-1">
-        <a class="btn-ghost btn text-xl normal-case">daisyUI</a>
+        <a href="/" class="btn-ghost btn text-xl normal-case">Home</a>
+    </div>
+    <div class="flex-2 mr-3">
+        <span>{{ auth()->user()->name }}</span>
     </div>
     <div class="flex-none">
-        <a href="/login" class="btn-outline btn-info btn">
-            Login
-        </a>
+        @if (auth()->user())
+            <form action="/logout" method="POST">
+                @csrf
+                <button type="submit" class="btn-outline btn-error btn">Logout</button>
+            </form>
+        @else
+            <a href="/login" class="btn-outline btn-info btn">
+                Login
+            </a>
+        @endif
     </div>
 </div>

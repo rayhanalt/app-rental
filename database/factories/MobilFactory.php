@@ -31,7 +31,7 @@ class MobilFactory extends Factory
             $data_fakta[] = ['gambar' => $file];
         }
         return [
-            'nopol' => fake()->unique()->regexify('[A-Z]{3}[0-9]{3}'),
+            'nopol' => fake()->unique()->regexify('[A-Z]{1} [0-9]{4} [A-Z]{2,3}'),
             'merk' => fake()->randomElement(['Toyota', 'Honda', 'Suzuki', 'Mitsubishi']),
             'model' => fake()->randomElement(['Avanza', 'Innova', 'Xenia', 'Ertiga']),
             'tahun' => fake()->date(),

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/title.jpg') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/title.png') }}" />
     @vite('resources/css/app.css')
 </head>
 
@@ -59,31 +59,56 @@
             </svg>
 
             <div class="text-center text-slate-800 lg:text-left">
+                @if (session()->has('failed'))
+                    <div
+                        class="alert alert-error absolute left-2 top-1 w-1/3 shadow-lg transition-all duration-300 lg:left-20 lg:top-20 lg:w-1/4 lg:animate-bounce">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0 stroke-current"
+                                fill="none" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span> {{ session('failed') }}</span>
+                        </div>
+                    </div>
+                @endif
                 <h1 class="text-5xl font-bold">Login now!</h1>
                 <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
                     exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             </div>
             <div class="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
-                <div class="card-body">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Email</span>
-                        </label>
-                        <input type="text" placeholder="email" class="input-bordered input" />
+
+                <form action="login" method="post">
+                    @csrf
+
+                    <div class="card-body">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Username</span>
+                            </label>
+                            <input type="text" name="username" placeholder="email" class="input-bordered input"
+                                required />
+                            @error('username')
+                                <span class="text-xs text-red-500">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Password</span>
+                            </label>
+                            <input type="password" name="password" placeholder="password"
+                                class="input-bordered input" required />
+                            <label class="label">
+                                <a href="#" class="link-hover label-text-alt link">Forgot password?</a>
+                            </label>
+                        </div>
+                        <div class="form-control mt-6">
+                            <button class="btn-primary btn">Login</button>
+                        </div>
                     </div>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Password</span>
-                        </label>
-                        <input type="text" placeholder="password" class="input-bordered input" />
-                        <label class="label">
-                            <a href="#" class="link-hover label-text-alt link">Forgot password?</a>
-                        </label>
-                    </div>
-                    <div class="form-control mt-6">
-                        <button class="btn-primary btn">Login</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

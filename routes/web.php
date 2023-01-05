@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MobilController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// home
 Route::get('/', function () {
     return view('app');
-});
-Route::get('/login', function () {
+})->middleware('auth');
+
+// Login
+Route::get('/loginpage', function () {
     return view('login');
+})->name('login')->middleware('guest');
+
+// Mobil
+Route::resource('/mobil', MobilController::class)->except('show')->middleware('auth');
+
+// login
+Route::controller(LoginController::class)->group(function () {
+    Route::post('/login', 'auth');
+    Route::get('/login', 'auth')->middleware('guest');
+
+    Route::post('/logout', 'logout');
+    Route::get('/logout', 'logout')->middleware('guest');
 });
-Route::resource('/mobil', MobilController::class)->except('show');

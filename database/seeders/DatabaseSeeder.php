@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Mobil;
+use App\Models\User;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Database\Seeder;
 
@@ -19,10 +20,11 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        Mobil::factory(50)->create();
+        User::create([
+            'username' => 'admin',
+            'name' => 'Rayhan Althaf',
+            'password' => bcrypt('12345'),
+        ]);
+        Mobil::factory(30)->create();
     }
 }
