@@ -12,8 +12,6 @@ class Mobil extends Component
 
     public function render()
     {
-
-
         return view('livewire.mobil', [
             'data' => ModelsMobil::Paginate(3)->withQueryString(),
         ]);
