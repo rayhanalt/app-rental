@@ -36,7 +36,7 @@
             <label for="my-drawer" class="drawer-overlay"></label>
             <ul class="menu w-80 bg-base-100 p-4 text-base-content">
                 <!-- Sidebar content here -->
-                <li><a>Customer</a></li>
+                <li><a href="/customer">Customer</a></li>
                 <li><a href="/mobil">Mobil</a></li>
                 <li><a>Rental</a></li>
                 <li><a>Denda</a></li>

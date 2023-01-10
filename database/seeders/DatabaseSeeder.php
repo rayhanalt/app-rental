@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Customer;
 use App\Models\Mobil;
 use App\Models\User;
 use GuzzleHttp\Promise\Create;
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345'),
         ]);
         Mobil::factory(30)->create();
+        Customer::factory(30)->create();
     }
 }

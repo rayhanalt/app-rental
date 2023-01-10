@@ -9,11 +9,20 @@ use Livewire\WithPagination;
 class Mobil extends Component
 {
     use WithPagination;
-
+    protected $updatesQueryString = ['search'];
+    public $search;
     public function render()
     {
         return view('livewire.mobil', [
-            'data' => ModelsMobil::Paginate(3)->withQueryString(),
+            'data' => $this->search === null ?
+                ModelsMobil::orderBy('id', 'desc')->Paginate(3)->withQueryString() :
+                ModelsMobil::orderBy('id', 'desc')->where('nopol', 'like', '%' . $this->search . '%')
+                ->orWhere('merk', 'like', '%' . $this->search . '%')
+                ->orWhere('model', 'like', '%' . $this->search . '%')
+                ->orWhere('tahun', 'like', '%' . $this->search . '%')
+                ->orWhere('warna', 'like', '%' . $this->search . '%')
+                ->orWhere('harga_sewa', 'like', '%' . $this->search . '%')
+                ->paginate(3)->withQueryString()
         ]);
     }
 }

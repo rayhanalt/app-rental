@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\MobilController;
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MobilController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,9 @@ Route::get('/loginpage', function () {
 
 // Mobil
 Route::resource('/mobil', MobilController::class)->except('show')->middleware('auth');
+
+// Customer
+Route::resource('/customer', CustomerController::class)->except('show')->middleware('auth');
 
 // login
 Route::controller(LoginController::class)->group(function () {

@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
     <div class="place-items-start">
-        @livewire('mobil')
+        @livewire('customer')
     </div>
 @endsection

@@ -1,14 +1,13 @@
 <div>
     <div class="mb-2 flex flex-grow justify-between">
         <div>
-            <a href="/mobil/create" class="btn-outline btn-success btn-sm btn">➕ Data</a>
+            <a href="/customer/create" class="btn-outline btn-success btn-sm btn">➕ Data</a>
         </div>
         <div>
             @include('layout.notif')
         </div>
         <div>
-            <input wire:model="search" type="text" class="input-info input input-sm"
-                placeholder="Search, if date: 'Y-m-d'">
+            <input wire:model="search" type="text" class="input-info input input-sm" placeholder="Search">
         </div>
     </div>
     <table class="table w-full">
@@ -16,14 +15,10 @@
         <thead class="sticky top-0">
             <tr>
                 <th></th>
-                {{-- <th>Kode</th> --}}
-                <th>Nopol</th>
-                <th>Merk</th>
-                <th>Model</th>
-                <th>Tahun</th>
-                <th>Warna</th>
-                <th>Harga Sewa</th>
-                <th>gambar</th>
+                <th>NIK</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>No Telp</th>
                 <th>action</th>
             </tr>
         </thead>
@@ -31,23 +26,19 @@
             @foreach ($data as $item)
                 <tr>
                     <td>{{ $loop->iteration + $data->FirstItem() - 1 }}</td>
-                    {{-- <td>{{ $item->kode_mobil }}</td> --}}
-                    <td>{{ $item->nopol }}</td>
-                    <td>{{ $item->merk }}</td>
-                    <td>{{ $item->model }}</td>
-                    <td>{{ date('d F Y', strtotime($item->tahun)) }}</td>
-                    <td>{{ $item->warna }}</td>
-                    <td>{{ 'Rp. ' . number_format($item->harga_sewa, 0, ',', '.') }}</td>
-                    <td><img src="{{ asset('gambar/' . $item->gambar) }}" width="70px"></td>
+                    <td>{{ $item->nik }}</td>
+                    <td>{{ $item->nama }}</td>
+                    <td>{{ $item->alamat }}</td>
+                    <td>{{ $item->no_telp }}</td>
                     <td>
-                        <a href="/mobil/{{ $item->kode_mobil }}/edit" class="btn-outline btn-accent btn-sm btn mb-1">
+                        <a href="/customer/{{ $item->nik }}/edit" class="btn-outline btn-accent btn-sm btn mb-1">
                             ✎
                         </a>
-                        <form action="/mobil/{{ $item->kode_mobil }}" method="POST">
+                        <form action="/customer/{{ $item->nik }}" method="POST">
                             @method('delete')
                             @csrf
                             <button class="btn-outline btn-error btn-sm btn"
-                                onclick="return confirm('yakin hapus data {{ $item->nopol }} ?')">
+                                onclick="return confirm('yakin hapus data {{ $item->nama }} ?')">
                                 🗑
                             </button>
                         </form>
@@ -56,7 +47,6 @@
             @endforeach
         </tbody>
     </table>
-
     @if ($data->total() >= 3)
         <div class="mt-10 flex place-content-center">
             <div class="btn-group grid w-fit grid-cols-2">
