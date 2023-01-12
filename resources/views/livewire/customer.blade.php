@@ -47,15 +47,13 @@
             @endforeach
         </tbody>
     </table>
-    @if ($data->total() >= 3)
-        <div class="fixed bottom-28 left-0 right-0">
-            <div class="btn-group mx-auto grid w-fit grid-cols-2">
-                <button wire:click="previousPage" @if ($data->onFirstPage()) disabled @endif
-                    class="btn-outline btn-sm btn">previous</button>
+    <div class="fixed bottom-28 left-0 right-0">
+        <div class="btn-group mx-auto grid w-fit grid-cols-2">
+            <button wire:click="previousPage" @if ($data->onFirstPage()) disabled @endif
+                class="btn-outline btn-sm btn">previous</button>
 
-                <button wire:click="nextPage" @if (!$data->hasMorePages()) disabled @endif
-                    class="btn-outline btn-sm btn">next</button>
-            </div>
+            <button wire:click="nextPage" @if (!$data->hasMorePages()) disabled @endif
+                class="btn-outline btn-sm btn">next</button>
         </div>
-    @endif
+    </div>
 </div>

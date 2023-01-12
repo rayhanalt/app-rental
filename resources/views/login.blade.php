@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/title.png') }}" />
+    <link rel="stylesheet" href="{{ asset('aos/aos.css') }}">
     @vite('resources/css/app.css')
 </head>
 
@@ -72,11 +73,15 @@
                         </div>
                     </div>
                 @endif
-                <h1 class="text-5xl font-bold">Login now!</h1>
-                <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                <h1 data-aos-duration="500" data-aos="fade-right" class="text-5xl font-bold">Login now!</h1>
+                <p data-aos-duration="700" data-aos="fade-right" class="py-6">Provident cupiditate voluptatem et in.
+                    Quaerat fugiat ut
+                    assumenda
+                    excepturi
                     exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             </div>
-            <div class="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
+            <div data-aos-duration="800" data-aos="flip-left"
+                class="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
 
                 <form action="login" method="post">
                     @csrf
@@ -112,6 +117,14 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('aos/aos.js') }}"></script>
+    <script>
+        AOS.init({
+            duration: 1000, // values from 0 to 3000, with step 50ms
+            easing: 'linear', // default easing for AOS animations
+            anchorPlacement: 'center-center', // defines which position of the element regarding to window should trigger the animation
+        });
+    </script>
 </body>
 
 </html>

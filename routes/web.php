@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,15 +18,17 @@ use App\Http\Controllers\CustomerController;
 */
 
 // home
-Route::get('/', function () {
-    return view('app');
-})->middleware('auth');
+// Route::get('/', function () {
+//     return view('dashboard');
+// })->middleware('auth');
 
 // Login
 Route::get('/loginpage', function () {
     return view('login');
 })->name('login')->middleware('guest');
 
+// Dashboard
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 // Mobil
 Route::resource('/mobil', MobilController::class)->except('show')->middleware('auth');
 
