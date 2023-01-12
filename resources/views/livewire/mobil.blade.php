@@ -1,5 +1,5 @@
 <div>
-    <div class="mb-2 flex flex-grow justify-between">
+    <div class="fixed top-[72px] bottom-2 right-2 left-2 flex flex-grow justify-between">
         <div>
             <a href="/mobil/create" class="btn-outline btn-success btn-sm btn">➕ Data</a>
         </div>
@@ -11,9 +11,9 @@
                 placeholder="Search, if date: 'Y-m-d'">
         </div>
     </div>
-    <table class="table w-full">
+    <table class="mt-10 table w-full">
         <!-- head -->
-        <thead class="sticky top-0">
+        <thead>
             <tr>
                 <th></th>
                 {{-- <th>Kode</th> --}}
@@ -30,7 +30,7 @@
         <tbody>
             @foreach ($data as $item)
                 <tr>
-                    <td>{{ $loop->iteration + $data->FirstItem() - 1 }}</td>
+                    <th>{{ $loop->iteration + $data->FirstItem() - 1 }}</th>
                     {{-- <td>{{ $item->kode_mobil }}</td> --}}
                     <td>{{ $item->nopol }}</td>
                     <td>{{ $item->merk }}</td>
@@ -58,8 +58,9 @@
     </table>
 
     @if ($data->total() >= 3)
-        <div class="mt-10 flex place-content-center">
-            <div class="btn-group grid w-fit grid-cols-2">
+        {{-- <div class="relative"> --}}
+        <div class="fixed bottom-28 left-0 right-0">
+            <div class="btn-group mx-auto grid w-fit grid-cols-2">
                 <button wire:click="previousPage" @if ($data->onFirstPage()) disabled @endif
                     class="btn-outline btn-sm btn">previous</button>
 
@@ -67,5 +68,6 @@
                     class="btn-outline btn-sm btn">next</button>
             </div>
         </div>
+        {{-- </div> --}}
     @endif
 </div>

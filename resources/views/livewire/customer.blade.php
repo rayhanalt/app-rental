@@ -1,5 +1,5 @@
 <div>
-    <div class="mb-2 flex flex-grow justify-between">
+    <div class="fixed top-[72px] bottom-2 right-2 left-2 flex flex-grow justify-between">
         <div>
             <a href="/customer/create" class="btn-outline btn-success btn-sm btn">➕ Data</a>
         </div>
@@ -10,7 +10,7 @@
             <input wire:model="search" type="text" class="input-info input input-sm" placeholder="Search">
         </div>
     </div>
-    <table class="table w-full">
+    <table class="mt-10 table w-full">
         <!-- head -->
         <thead class="sticky top-0">
             <tr>
@@ -25,7 +25,7 @@
         <tbody>
             @foreach ($data as $item)
                 <tr>
-                    <td>{{ $loop->iteration + $data->FirstItem() - 1 }}</td>
+                    <th>{{ $loop->iteration + $data->FirstItem() - 1 }}</th>
                     <td>{{ $item->nik }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->alamat }}</td>
@@ -48,8 +48,8 @@
         </tbody>
     </table>
     @if ($data->total() >= 3)
-        <div class="mt-10 flex place-content-center">
-            <div class="btn-group grid w-fit grid-cols-2">
+        <div class="fixed bottom-28 left-0 right-0">
+            <div class="btn-group mx-auto grid w-fit grid-cols-2">
                 <button wire:click="previousPage" @if ($data->onFirstPage()) disabled @endif
                     class="btn-outline btn-sm btn">previous</button>
 
