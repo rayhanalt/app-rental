@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mobil extends Model
+class Rental extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $table = 'mobil';
+    protected $table = 'rental';
 
     public function getRouteKeyName()
     {
-        return 'kode_mobil';
+        return 'kode_rental';
     }
 
     public static function boot()
@@ -21,12 +21,18 @@ class Mobil extends Model
         parent::boot();
         static::creating(
             function ($model) {
-                $model->kode_mobil = 'KM-' . rand(100000, 999999);
+                $model->kode_rental = 'KR-' . rand(100000, 999999);
             }
         );
     }
-    public function haveRental()
+
+    // belongs to
+    public function getMobil()
     {
-        return $this->hasMany(Rental::class, 'kode_mobil', 'kode_mobil');
+        return $this->belongsTo(Mobil::class, 'kode_mobil', 'kode_mobil');
+    }
+    public function getCustomer()
+    {
+        return $this->belongsTo(Customer::class, 'nik', 'nik');
     }
 }

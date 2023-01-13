@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use App\Models\Mobil;
+use App\Models\Rental;
 use App\Models\User;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Database\Seeder;
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         ]);
         Mobil::factory(30)->create();
         Customer::factory(30)->create();
+        Rental::factory(30)->create();
     }
 }

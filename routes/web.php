@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MobilController;
+use App\Http\Controllers\RentalController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 
@@ -34,6 +35,9 @@ Route::resource('/mobil', MobilController::class)->except('show')->middleware('a
 
 // Customer
 Route::resource('/customer', CustomerController::class)->except('show')->middleware('auth');
+
+// Rental
+Route::resource('/rental', RentalController::class)->except('show')->middleware('auth');
 
 // login
 Route::controller(LoginController::class)->group(function () {

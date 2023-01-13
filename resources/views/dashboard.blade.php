@@ -70,7 +70,7 @@
                     </svg>
                 </div>
                 <div class="stat-title">Jumlah Data Rental</div>
-                {{-- <div class="stat-value">{{ $alternatif }}</div> --}}
+                <div class="stat-value">{{ $rental }}</div>
             </div>
 
         </div>

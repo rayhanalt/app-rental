@@ -14,5 +14,19 @@
         dateFormat: 'Y-m-d'
     });
 </script>
-
+<script>
+    document.getElementById('gambar').addEventListener('change', function(e) {
+        // Mengambil file gambar yang dipilih
+        let file = e.target.files[0];
+        // Membuat objek FileReader
+        let reader = new FileReader();
+        // Menentukan callback untuk file yang sudah selesai dibaca
+        reader.onload = function(e) {
+            // Menampilkan preview gambar pada elemen img
+            document.getElementById('preview-gambar').src = e.target.result;
+        }
+        // Membaca file gambar yang dipilih
+        reader.readAsDataURL(file);
+    });
+</script>
 @livewireScripts

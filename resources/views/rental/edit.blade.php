@@ -2,40 +2,24 @@
 @section('content')
     <div class="overflow-x-auto">
         <div class="card shadow-xl">
-            <h3 class="sticky top-0 text-lg font-bold">Ubah Data Mobil
+            <h3 class="sticky top-0 text-lg font-bold">Ubah Data Rental
                 <hr>
             </h3>
             <div class="card-body">
-                <form action="/mobil/{{ $item->kode_mobil }}" method="post" enctype="multipart/form-data">
+                <form action="/rental/{{ $item->kode_rental }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="form-control w-full max-w-full">
                         <label class="label">
-                            <span class="label-text">Nopol</span>
+                            <span class="label-text">NIK</span>
                             <span class="label-text-alt"></span>
                         </label>
-                        <input name="nopol" type="text" placeholder="Type here"
-                            value="{{ old('nopol', $item->nopol) }}" class="input-bordered input w-full max-w-full" />
-                        <label class="label">
-                            <span class="label-text-alt"></span>
-                            <span class="label-text-alt text-red-600">
-                                @error('nopol')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-control w-full max-w-full">
-                        <label class="label">
-                            <span class="label-text">Merk</span>
-                            <span class="label-text-alt"></span>
-                        </label>
-                        <input name="merk" type="text" placeholder="Type here" value="{{ old('merk', $item->merk) }}"
+                        <input name="nik" type="text" placeholder="Type here" value="{{ old('nik', $item->nik) }}"
                             class="input-bordered input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">
-                                @error('merk')
+                                @error('nik')
                                     {{ $message }}
                                 @enderror
                             </span>
@@ -43,15 +27,16 @@
                     </div>
                     <div class="form-control w-full max-w-full">
                         <label class="label">
-                            <span class="label-text">Model</span>
+                            <span class="label-text">Kode Mobil</span>
                             <span class="label-text-alt"></span>
                         </label>
-                        <input name="model" type="text" placeholder="click here"
-                            value="{{ old('model', $item->model) }}" class="input-bordered input w-full max-w-full" />
+                        <input name="kode_mobil" type="text" placeholder="Type here"
+                            value="{{ old('kode_mobil', $item->kode_mobil) }}"
+                            class="input-bordered input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">
-                                @error('model')
+                                @error('kode_mobil')
                                     {{ $message }}
                                 @enderror
                             </span>
@@ -59,16 +44,16 @@
                     </div>
                     <div class="form-control w-full max-w-full">
                         <label class="label">
-                            <span class="label-text">Tahun</span>
+                            <span class="label-text">Tanggal Rental</span>
                             <span class="label-text-alt"></span>
                         </label>
-                        <input name="tahun" type="date" placeholder="Type here"
-                            value="{{ old('tahun', $item->tahun) }}"
+                        <input name="tanggal_rental" type="date" placeholder="Type here"
+                            value="{{ old('tanggal_rental', $item->tanggal_rental) }}"
                             class="datepicker input-bordered input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">
-                                @error('tahun')
+                                @error('tanggal_rental')
                                     {{ $message }}
                                 @enderror
                             </span>
@@ -76,15 +61,16 @@
                     </div>
                     <div class="form-control w-full max-w-full">
                         <label class="label">
-                            <span class="label-text">Warna</span>
+                            <span class="label-text">Tanggal Kembal</span>
                             <span class="label-text-alt"></span>
                         </label>
-                        <input name="warna" type="text" placeholder="Type here"
-                            value="{{ old('warna', $item->warna) }}" class="input-bordered input w-full max-w-full" />
+                        <input name="tanggal_kembali" type="date" placeholder="Type here"
+                            value="{{ old('tanggal_kembali', $item->tanggal_kembali) }}"
+                            class="datepicker input-bordered input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">
-                                @error('warna')
+                                @error('tanggal_kembali')
                                     {{ $message }}
                                 @enderror
                             </span>
@@ -92,35 +78,32 @@
                     </div>
                     <div class="form-control w-full max-w-full">
                         <label class="label">
-                            <span class="label-text">Harga Sewa</span>
+                            <span class="label-text">Durasi</span>
                             <span class="label-text-alt"></span>
                         </label>
-                        <input name="harga_sewa" id="harga_sewa" type="text" placeholder="Type here"
-                            value="{{ old('harga_sewa', $item->harga_sewa) }}"
+                        <input name="durasi" type="text" placeholder="click here"
+                            value="{{ old('durasi', $item->durasi) }}" class="input-bordered input w-full max-w-full" />
+                        <label class="label">
+                            <span class="label-text-alt"></span>
+                            <span class="label-text-alt text-red-600">
+                                @error('durasi')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-control w-full max-w-full">
+                        <label class="label">
+                            <span class="label-text">Total Harga</span>
+                            <span class="label-text-alt"></span>
+                        </label>
+                        <input name="total_harga" type="text" placeholder="Type here"
+                            value="{{ old('total_harga', $item->total_harga) }}"
                             class="input-bordered input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">
-                                @error('harga_sewa')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-control w-full max-w-full">
-                        <label class="label">
-                            <span class="label-text">Gambar</span>
-                            <span class="label-text-alt"><img
-                                    src="@if ($item->gambar) {{ asset('gambar/' . $item->gambar) }} @else # @endif"
-                                    alt="Preview Gambar" id="preview-gambar" width="100px"></span>
-                        </label>
-                        <input name="gambar" type="file" value="{{ old('gambar') }}" id="gambar" accept="image/*"
-                            class="file-input-bordered file-input w-full max-w-full" />
-
-                        <label class="label">
-                            <span class="label-text-alt"></span>
-                            <span class="label-text-alt text-red-500">
-                                @error('gambar')
+                                @error('total_harga')
                                     {{ $message }}
                                 @enderror
                             </span>

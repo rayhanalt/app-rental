@@ -14,4 +14,8 @@ class Customer extends Model
     {
         return 'nik';
     }
+    public function haveRental()
+    {
+        return $this->hasMany(Rental::class, 'nik', 'nik');
+    }
 }

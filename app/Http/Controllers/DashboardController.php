@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Mobil;
+use App\Models\Rental;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,7 +13,8 @@ class DashboardController extends Controller
     {
         return view('dashboard', [
             'mobil' => Mobil::count(),
-            'customer' => Customer::count()
+            'customer' => Customer::count(),
+            'rental' => Rental::count(),
         ]);
     }
 }
