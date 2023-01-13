@@ -9,8 +9,13 @@ use Livewire\WithPagination;
 class Customer extends Component
 {
     use WithPagination;
-    protected $updatesQueryString = ['search'];
     public $search;
+    public $page = 1;
+
+    protected $updatesQueryString = [
+        ['page' => ['except' => 1]],
+        ['search' => ['except' => '']],
+    ];
     public function render()
     {
         return view('livewire.customer', [

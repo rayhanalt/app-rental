@@ -13,8 +13,13 @@
                             <span class="label-text">Nik</span>
                             <span class="label-text-alt"></span>
                         </label>
-                        <input name="nik" type="text" placeholder="Type here" value="{{ old('nik') }}"
-                            class="input-bordered input w-full max-w-full" />
+                        <select class="select-bordered select" name="nik">
+                            <option disabled selected>Pick one</option>
+                            @foreach ($getCustomer as $customer)
+                                <option value="{{ $customer->nik }}">
+                                    {{ $customer->nama }} | {{ $customer->nik }}</option>
+                            @endforeach
+                        </select>
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">
@@ -26,15 +31,20 @@
                     </div>
                     <div class="form-control w-full max-w-full">
                         <label class="label">
-                            <span class="label-text">Kode Mobil</span>
+                            <span class="label-text">Nopol</span>
                             <span class="label-text-alt"></span>
                         </label>
-                        <input name="kode_mobil" type="text" placeholder="Type here" value="{{ old('kode_mobil') }}"
-                            class="input-bordered input w-full max-w-full" />
+                        <select class="select-bordered select" name="nopol">
+                            <option disabled selected>Pick one</option>
+                            @foreach ($getMobil as $mobil)
+                                <option value="{{ $mobil->nopol }}">
+                                    {{ $mobil->merk }} | {{ $mobil->model }} | {{ $mobil->nopol }}</option>
+                            @endforeach
+                        </select>
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">
-                                @error('kode_mobil')
+                                @error('nopol')
                                     {{ $message }}
                                 @enderror
                             </span>
@@ -73,7 +83,7 @@
                             </span>
                         </label>
                     </div>
-                    <div class="form-control w-full max-w-full">
+                    {{-- <div class="form-control w-full max-w-full">
                         <label class="label">
                             <span class="label-text">Durasi</span>
                             <span class="label-text-alt"></span>
@@ -104,7 +114,7 @@
                                 @enderror
                             </span>
                         </label>
-                    </div>
+                    </div> --}}
                     <div class="card-actions justify-end">
                         <button type="submit" class="btn-error btn">Reset</button>
                         <button type="submit"class="btn btn-success">Simpan</button>

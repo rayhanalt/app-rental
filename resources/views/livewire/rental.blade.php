@@ -34,7 +34,7 @@
                     {{-- <td>{{ $item->kode_mobil }}</td> --}}
                     <td>{{ $item->kode_rental }}</td>
                     <td>{{ $item->getCustomer->nama }}</td>
-                    <td>{{ $item->getMobil->nopol }}</td>
+                    <td>{{ $item->nopol }}</td>
                     <td>{{ date('d F Y', strtotime($item->tanggal_rental)) }}</td>
                     <td>{{ date('d F Y', strtotime($item->tanggal_kembali)) }}</td>
                     <td>{{ $item->durasi }} Hari</td>

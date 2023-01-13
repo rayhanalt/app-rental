@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_rental')->unique();
             $table->integer('nik');
-            $table->string('kode_mobil');
+            $table->string('nopol');
             $table->date('tanggal_rental');
             $table->date('tanggal_kembali');
             $table->string('durasi');

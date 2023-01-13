@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\Models\Mobil;
 use App\Models\Rental;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RentalController extends Controller
@@ -24,7 +27,10 @@ class RentalController extends Controller
      */
     public function create()
     {
-        return view('rental.create');
+        return view('rental.create', [
+            'getMobil' => Mobil::get(),
+            'getCustomer' => Customer::get()
+        ]);
     }
 
     /**
@@ -35,15 +41,33 @@ class RentalController extends Controller
      */
     public function store(Request $request)
     {
-        $validasi = $request->validate([
+        $request->validate([
             'nik' => 'required',
-            'kode_mobil' => 'required',
-            'tanggal_rental' => 'required',
-            'tanggal_kembali' => 'required',
-            'durasi' => 'required',
-            'total_harga' => 'required',
+            'nopol' => 'required',
+            'tanggal_rental' => 'required|date|before:tanggal_kembali',
+            'tanggal_kembali' => 'required|date|after:tanggal_rental',
         ]);
-        Rental::create($validasi);
+
+        $tanggal_rental = Carbon::parse($request->tanggal_rental);
+        $tanggal_kembali = Carbon::parse($request->tanggal_kembali);
+        $days = $tanggal_rental->diffInDays($tanggal_kembali);
+
+        $getHarga = Mobil::where('nopol', $request->nopol)->first();
+        $harga = $getHarga->harga_sewa;
+
+        $total_harga = $days * $harga;
+
+        // dd(json_encode($total_harga));
+
+        $rental = new Rental();
+        $rental->kode_rental = $request->kode_rental;
+        $rental->nik = $request->nik;
+        $rental->nopol = $request->nopol;
+        $rental->tanggal_rental = $request->tanggal_rental;
+        $rental->tanggal_kembali = $request->tanggal_kembali;
+        $rental->durasi = $days;
+        $rental->total_harga = $total_harga;
+        $rental->save();
 
         return redirect('/rental')->with('success', 'New Data has been added!')->withInput();
     }
@@ -70,6 +94,8 @@ class RentalController extends Controller
         return view('rental.edit', [
             'item' => $rental,
             'rental' => Rental::get(),
+            'getCustomer' => Customer::get(),
+            'getMobil' => Mobil::get()
         ]);
     }
 
@@ -82,15 +108,30 @@ class RentalController extends Controller
      */
     public function update(Request $request, Rental $rental)
     {
-        $validasi = $request->validate([
+        $request->validate([
             'nik' => 'required',
-            'kode_mobil' => 'required',
-            'tanggal_rental' => 'required',
-            'tanggal_kembali' => 'required',
-            'durasi' => 'required',
-            'total_harga' => 'required',
+            'nopol' => 'required',
+            'tanggal_rental' => 'required|date|before:tanggal_kembali',
+            'tanggal_kembali' => 'required|date|after:tanggal_rental',
         ]);
-        $rental->update($validasi);
+
+        $tanggal_rental = Carbon::parse($request->tanggal_rental);
+        $tanggal_kembali = Carbon::parse($request->tanggal_kembali);
+        $days = $tanggal_rental->diffInDays($tanggal_kembali);
+
+        $getHarga = Mobil::where('nopol', $request->nopol)->first();
+        $harga = $getHarga->harga_sewa;
+
+        $total_harga = $days * $harga;
+
+        $rental->nik = $request->nik;
+        $rental->nopol = $request->nopol;
+        $rental->tanggal_rental = $request->tanggal_rental;
+        $rental->tanggal_kembali = $request->tanggal_kembali;
+        $rental->durasi = $days;
+        $rental->total_harga = $total_harga;
+        $rental->update();
+
         return redirect('/rental')->with('success', 'Data has been updated!')->withInput();
     }
 

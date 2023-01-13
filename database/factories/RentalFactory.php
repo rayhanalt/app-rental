@@ -20,10 +20,10 @@ class RentalFactory extends Factory
     {
         return [
             'nik' => $this->faker->randomElement(Customer::all())['nik'],
-            'kode_mobil' => $this->faker->randomElement(Mobil::all())['kode_mobil'],
+            'nopol' => $this->faker->randomElement(Mobil::all())['nopol'],
             'tanggal_rental' => fake()->date(),
             'tanggal_kembali' => fake()->date(),
-            'durasi' => fake()->numberBetween(00, 10),
+            'durasi' => fake()->numberBetween(1, 10),
             'total_harga' => fake()->numberBetween(100000, 200000),
         ];
     }

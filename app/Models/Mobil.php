@@ -27,6 +27,6 @@ class Mobil extends Model
     }
     public function haveRental()
     {
-        return $this->hasMany(Rental::class, 'kode_mobil', 'kode_mobil');
+        return $this->hasMany(Rental::class, 'nopol', 'nopol');
     }
 }

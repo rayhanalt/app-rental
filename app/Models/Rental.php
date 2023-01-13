@@ -29,7 +29,7 @@ class Rental extends Model
     // belongs to
     public function getMobil()
     {
-        return $this->belongsTo(Mobil::class, 'kode_mobil', 'kode_mobil');
+        return $this->belongsTo(Mobil::class, 'nopol', 'nopol');
     }
     public function getCustomer()
     {
