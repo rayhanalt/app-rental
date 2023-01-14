@@ -104,7 +104,6 @@ class MobilController extends Controller
     public function update(Request $request, Mobil $mobil)
     {
         $rules = [
-            'nopol' => 'required|unique:mobil,nopol',
             'merk' => 'required',
             'model' => 'required',
             'tahun' => 'required',
@@ -124,8 +123,14 @@ class MobilController extends Controller
 
             // Menyimpan file ke direktori public/gambar
             $validasi['gambar']->move(public_path('gambar'), $validasi['gambar']->getClientOriginalName());
+
+            // validasi nopol jika berbeda dengan database
+            if ($request->nopol != $mobil->nopol) {
+                $validatedData = $request->validate(['nopol' => 'required|unique:mobil,nopol']);
+                $nopol = $validatedData['nopol'];
+            }
             $mobil->update([
-                'nopol' => $validasi['nopol'],
+                'nopol' => $request->nopol != $mobil->nopol ? $nopol : $request->nopol,
                 'merk' => $validasi['merk'],
                 'model' => $validasi['model'],
                 'tahun' => $validasi['tahun'],
@@ -134,8 +139,13 @@ class MobilController extends Controller
                 'gambar' => $validasi['gambar']->getClientOriginalName()
             ]);
         } else {
+            // validasi nopol jika berbeda dengan database
+            if ($request->nopol != $mobil->nopol) {
+                $validatedData = $request->validate(['nopol' => 'required|unique:mobil,nopol']);
+                $nopol = $validatedData['nopol'];
+            }
             $mobil->update([
-                'nopol' => $validasi['nopol'],
+                'nopol' => $request->nopol != $mobil->nopol ? $nopol : $request->nopol,
                 'merk' => $validasi['merk'],
                 'model' => $validasi['model'],
                 'tahun' => $validasi['tahun'],
