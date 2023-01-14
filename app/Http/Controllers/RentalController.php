@@ -39,25 +39,21 @@ class RentalController extends Controller
      * @param  \App\Http\Requests\StoreRentalRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Rental $rental)
     {
-        $request->validate([
-            'nik' => 'required',
-            'nopol' => 'required',
-            'tanggal_rental' => 'required|date|before:tanggal_kembali',
-            'tanggal_kembali' => 'required|date|after:tanggal_rental',
-        ]);
+        $rental->validateRental($request);
 
+        // mendapatkan durasi hari
         $tanggal_rental = Carbon::parse($request->tanggal_rental);
         $tanggal_kembali = Carbon::parse($request->tanggal_kembali);
         $days = $tanggal_rental->diffInDays($tanggal_kembali);
 
+        // mendapatkan harga sewa mobil
         $getHarga = Mobil::where('nopol', $request->nopol)->first();
         $harga = $getHarga->harga_sewa;
 
+        // menghitung total harga
         $total_harga = $days * $harga;
-
-        // dd(json_encode($total_harga));
 
         $rental = new Rental();
         $rental->kode_rental = $request->kode_rental;
@@ -108,20 +104,18 @@ class RentalController extends Controller
      */
     public function update(Request $request, Rental $rental)
     {
-        $request->validate([
-            'nik' => 'required',
-            'nopol' => 'required',
-            'tanggal_rental' => 'required|date|before:tanggal_kembali',
-            'tanggal_kembali' => 'required|date|after:tanggal_rental',
-        ]);
+        $rental->validateRental($request);
 
+        // mendapatkan durasi hari
         $tanggal_rental = Carbon::parse($request->tanggal_rental);
         $tanggal_kembali = Carbon::parse($request->tanggal_kembali);
         $days = $tanggal_rental->diffInDays($tanggal_kembali);
 
+        // mendapatkan harga sewa mobil
         $getHarga = Mobil::where('nopol', $request->nopol)->first();
         $harga = $getHarga->harga_sewa;
 
+        // menghitung total harga
         $total_harga = $days * $harga;
 
         $rental->nik = $request->nik;

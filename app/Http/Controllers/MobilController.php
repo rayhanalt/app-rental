@@ -39,32 +39,8 @@ class MobilController extends Controller
      */
     public function store(Request $request)
     {
-        $validasi = $request->validate([
-            'nopol' => 'required|unique:mobil,nopol',
-            'merk' => 'required',
-            'model' => 'required',
-            'tahun' => 'required',
-            'warna' => 'required',
-            'harga_sewa' => 'required',
-            'gambar' => 'required|image|file|max:2048',
-        ]);
-
-        // Mendapatkan file gambar yang diupload
-        $validasi['gambar'] = $request->file('gambar');
-
-        // Menyimpan file ke direktori public/gambar
-        $validasi['gambar']->move(public_path('gambar'), $validasi['gambar']->getClientOriginalName());
-
-        Mobil::create([
-            'nopol' => $validasi['nopol'],
-            'merk' => $validasi['merk'],
-            'model' => $validasi['model'],
-            'tahun' => $validasi['tahun'],
-            'warna' => $validasi['warna'],
-            'harga_sewa' => $validasi['harga_sewa'],
-            'gambar' => $validasi['gambar']->getClientOriginalName()
-        ]);
-
+        $validatedData = Mobil::createValidate($request);
+        Mobil::createNew($validatedData, $request);
 
         return redirect('/mobil')->with('success', 'New Data has been added!')->withInput();
     }
@@ -103,59 +79,9 @@ class MobilController extends Controller
      */
     public function update(Request $request, Mobil $mobil)
     {
-        $rules = [
-            'merk' => 'required',
-            'model' => 'required',
-            'tahun' => 'required',
-            'warna' => 'required',
-            'harga_sewa' => 'required',
-            'gambar' => 'image|file|max:2048',
-        ];
 
-        $validasi = $request->validate($rules);
-
-        if ($request->file('gambar')) {
-            if ($mobil->gambar) {
-                File::delete(public_path('gambar/' . $mobil->gambar));
-            }
-            // Mendapatkan file gambar yang diupload
-            $validasi['gambar'] = $request->file('gambar');
-
-            // Menyimpan file ke direktori public/gambar
-            $validasi['gambar']->move(public_path('gambar'), $validasi['gambar']->getClientOriginalName());
-
-            // validasi nopol jika berbeda dengan database
-            if ($request->nopol != $mobil->nopol) {
-                $validatedData = $request->validate(['nopol' => 'required|unique:mobil,nopol']);
-                $nopol = $validatedData['nopol'];
-            }
-            $mobil->update([
-                'nopol' => $request->nopol != $mobil->nopol ? $nopol : $request->nopol,
-                'merk' => $validasi['merk'],
-                'model' => $validasi['model'],
-                'tahun' => $validasi['tahun'],
-                'warna' => $validasi['warna'],
-                'harga_sewa' => $validasi['harga_sewa'],
-                'gambar' => $validasi['gambar']->getClientOriginalName()
-            ]);
-        } else {
-            // validasi nopol jika berbeda dengan database
-            if ($request->nopol != $mobil->nopol) {
-                $validatedData = $request->validate(['nopol' => 'required|unique:mobil,nopol']);
-                $nopol = $validatedData['nopol'];
-            }
-            $mobil->update([
-                'nopol' => $request->nopol != $mobil->nopol ? $nopol : $request->nopol,
-                'merk' => $validasi['merk'],
-                'model' => $validasi['model'],
-                'tahun' => $validasi['tahun'],
-                'warna' => $validasi['warna'],
-                'harga_sewa' => $validasi['harga_sewa'],
-            ]);
-        }
-
-
-
+        $validatedData = Mobil::updateValidate($request);
+        Mobil::updateData($mobil, $validatedData, $request);
 
         return redirect('/mobil')->with('success', 'Data has been updated!')->withInput();
     }

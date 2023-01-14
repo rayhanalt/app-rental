@@ -35,4 +35,17 @@ class Rental extends Model
     {
         return $this->belongsTo(Customer::class, 'nik', 'nik');
     }
+
+    // Validasi
+    public function validateRental($request)
+    {
+        $rules = [
+            'nik' => 'required',
+            'nopol' => 'required',
+            'tanggal_rental' => 'required|date|before:tanggal_kembali',
+            'tanggal_kembali' => 'required|date|after:tanggal_rental',
+        ];
+
+        $request->validate($rules);
+    }
 }
