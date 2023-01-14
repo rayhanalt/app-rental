@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Rayhan Althaf',
             'password' => bcrypt('12345'),
         ]);
-        Mobil::factory(30)->create();
-        Customer::factory(30)->create();
-        Rental::factory(30)->create();
+        Customer::factory(10)->create();
+        Mobil::factory(10)->create();
+        Rental::factory(10)->create();
     }
 }

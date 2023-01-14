@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Customer;
+use Carbon\Carbon;
 use App\Models\Mobil;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,13 +19,21 @@ class RentalFactory extends Factory
      */
     public function definition()
     {
+        $mobil = Mobil::all()->random();
+
+        $tanggal_rental = Carbon::parse(fake()->dateTimeBetween('-10 days', 'now'));
+        $tanggal_kembali = Carbon::parse(fake()->dateTimeBetween($tanggal_rental, '+10 days'));
+        $days = $tanggal_rental->diffInDays($tanggal_kembali);
+
+        $harga = $mobil->harga_sewa;
+        $total_harga = $days * $harga;
         return [
             'nik' => $this->faker->randomElement(Customer::all())['nik'],
-            'nopol' => $this->faker->randomElement(Mobil::all())['nopol'],
+            'nopol' => $mobil->nopol,
             'tanggal_rental' => fake()->date(),
             'tanggal_kembali' => fake()->date(),
-            'durasi' => fake()->numberBetween(1, 10),
-            'total_harga' => fake()->numberBetween(100000, 200000),
+            'durasi' => $days,
+            'total_harga' => $total_harga,
         ];
     }
 }

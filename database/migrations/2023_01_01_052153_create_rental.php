@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('nopol');
             $table->date('tanggal_rental');
             $table->date('tanggal_kembali');
-            $table->string('durasi');
-            $table->float('total_harga');
+            $table->integer('durasi');
+            $table->bigInteger('total_harga');
             $table->timestamps();
         });
     }

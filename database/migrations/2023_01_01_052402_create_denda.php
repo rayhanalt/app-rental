@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kode_denda')->unique();
             $table->string('kode_rental');
             $table->date('tanggal_denda');
-            $table->float('jumlah_denda');
+            $table->bigInteger('jumlah_denda');
             $table->timestamps();
         });
     }

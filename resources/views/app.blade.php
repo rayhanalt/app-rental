@@ -39,7 +39,7 @@
                 <li><a href="/customer">Customer</a></li>
                 <li><a href="/mobil">Mobil</a></li>
                 <li><a href="/rental">Rental</a></li>
-                <li><a>Denda</a></li>
+                <li><a href="/denda">Denda</a></li>
             </ul>
         </div>
     </div>

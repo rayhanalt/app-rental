@@ -77,10 +77,9 @@ class Mobil extends Model
                 File::delete(public_path('gambar/' . $mobil->gambar));
             }
             // memindahkan gambar ke public/gambar
-            // $validatedData['gambar'] = $request->file('gambar');
-            // $validatedData['gambar']->move(public_path('gambar'), $validatedData['gambar']->getClientOriginalName());
-            // $validatedData['gambar'] = $validatedData['gambar']->getClientOriginalName();
             $validatedData['gambar'] = $request->file('gambar');
+
+            // membuat filename random
             $fileName = uniqid() . '.' . $validatedData['gambar']->getClientOriginalExtension();
             $validatedData['gambar']->move(public_path('gambar'), $fileName);
             $validatedData['gambar'] = $fileName;
