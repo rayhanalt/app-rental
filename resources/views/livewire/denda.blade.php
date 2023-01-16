@@ -11,7 +11,7 @@
                 placeholder="Search, if date: 'Y-m-d'">
         </div>
     </div>
-    <table class="mt-10 table w-full">
+    <table class="table-compact mt-10 table w-full">
         <!-- head -->
         <thead>
             <tr>
@@ -34,6 +34,7 @@
                     <td>
                         <ul>
                             <li>{{ $item->getRental->getMobil->nopol }}</li>
+                            <li>{{ $item->getRental->getMobil->model }}</li>
                             <li>{{ $item->getRental->getCustomer->nama }}</li>
                             <li>{{ 'Rp. ' . number_format($item->getRental->getMobil->harga_sewa, 0, ',', '.') }}</li>
                         </ul>
