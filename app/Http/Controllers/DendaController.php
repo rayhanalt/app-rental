@@ -84,7 +84,10 @@ class DendaController extends Controller
      */
     public function edit(Denda $denda)
     {
-        //
+        return view('denda.edit', [
+            'item' => $denda,
+            'getRental' => Rental::get()
+        ]);
     }
 
     /**
@@ -96,7 +99,29 @@ class DendaController extends Controller
      */
     public function update(Request $request, Denda $denda)
     {
-        //
+        $denda->validateDenda($request);
+
+        // mendapatkan durasi hari
+        $ambilRental = Rental::where('kode_rental', $request->kode_rental)->first();
+        $tanggal_kembali = $ambilRental->tanggal_kembali;
+        $kembaliParse = Carbon::parse($tanggal_kembali);
+        $tanggal_denda = Carbon::parse($request->tanggal_denda);
+        $days = $kembaliParse->diffInDays($tanggal_denda);
+
+        // mendapatkan harga sewa mobil
+
+        $harga = $ambilRental->getMobil->harga_sewa;
+
+        // menghitung total harga
+        $jumlah_denda = $days * $harga;
+
+
+        $denda->kode_rental = $request->kode_rental;
+        $denda->tanggal_denda = $request->tanggal_denda;
+        $denda->jumlah_denda = $jumlah_denda;
+        $denda->update();
+
+        return redirect('/denda')->with('success', 'Data has been updated!')->withInput();
     }
 
     /**

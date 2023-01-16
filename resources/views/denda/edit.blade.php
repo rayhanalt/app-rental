@@ -2,11 +2,11 @@
 @section('content')
     <div class="overflow-x-auto">
         <div class="card shadow-xl">
-            <h3 class="sticky top-0 text-lg font-bold">Ubah Data Rental
+            <h3 class="sticky top-0 text-lg font-bold">Ubah Data Denda
                 <hr>
             </h3>
             <div class="card-body">
-                <form action="/rental/{{ $item->kode_rental }}" method="post" enctype="multipart/form-data">
+                <form action="/denda/{{ $item->kode_denda }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="form-control w-full max-w-full">
@@ -17,8 +17,8 @@
                         <select class="select-bordered select" name="kode_rental">
                             <option disabled selected>Pick one</option>
                             @foreach ($getRental as $rental)
-                                <option value="{{ $rental->kode_rental }}"
-                                    {{ old('kode_rental') == $rental->kode_rental ? 'selected' : '' }}>
+                                <option {{ old('kode_rental') == $rental->kode_rental ? 'selected' : '' }}
+                                    @if ($rental->kode_rental == $item->kode_rental) selected @endif value="{{ $rental->kode_rental }}">
                                     {{ $rental->getCustomer->nama }} | {{ $rental->getMobil->nopol }} |
                                     {{ 'Rp. ' . number_format($rental->getMobil->harga_sewa, 0, ',', '.') }}
                                 </option>
@@ -40,7 +40,8 @@
                             <span class="label-text-alt"></span>
                         </label>
                         <input name="tanggal_denda" type="date" placeholder="Type here"
-                            value="{{ old('tanggal_denda') }}" class="datepicker input-bordered input w-full max-w-full" />
+                            value="{{ old('tanggal_denda', $item->tanggal_denda) }}"
+                            class="datepicker input-bordered input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt">Tanggal Kembali: <input readonly type="date"
                                     name="tanggal_kembali"></span>
