@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DendaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Models\Denda;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,11 @@ Route::resource('/customer', CustomerController::class)->except('show')->middlew
 // Rental
 Route::resource('/rental', RentalController::class)->except('show')->middleware('auth');
 
+// Denda
+Route::resource('/denda', DendaController::class)->except('show')->middleware('auth');
+Route::controller(DendaController::class)->group(function () {
+    Route::get('/denda/getData/{kode_rental}', 'getData')->middleware('auth');
+});
 // login
 Route::controller(LoginController::class)->group(function () {
     Route::post('/login', 'auth');

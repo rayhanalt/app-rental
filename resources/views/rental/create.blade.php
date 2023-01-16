@@ -16,7 +16,7 @@
                         <select class="select-bordered select" name="nik">
                             <option disabled selected>Pick one</option>
                             @foreach ($getCustomer as $customer)
-                                <option value="{{ $customer->nik }}">
+                                <option value="{{ $customer->nik }}" {{ old('nik') == $customer->nik ? 'selected' : '' }}>
                                     {{ $customer->nama }} | {{ $customer->nik }}</option>
                             @endforeach
                         </select>
@@ -37,7 +37,7 @@
                         <select class="select-bordered select" name="nopol">
                             <option disabled selected>Pick one</option>
                             @foreach ($getMobil as $mobil)
-                                <option value="{{ $mobil->nopol }}">
+                                <option value="{{ $mobil->nopol }}" {{ old('nopol') == $mobil->nopol ? 'selected' : '' }}>
                                     {{ $mobil->merk }} | {{ $mobil->model }} | {{ $mobil->nopol }}</option>
                             @endforeach
                         </select>
@@ -56,7 +56,8 @@
                             <span class="label-text-alt"></span>
                         </label>
                         <input name="tanggal_rental" type="date" placeholder="Type here"
-                            value="{{ old('tanggal_rental') }}" class="datepicker input-bordered input w-full max-w-full" />
+                            value="{{ old('tanggal_rental') }}"
+                            class="datepicker input-bordered input w-full max-w-full" />
                         <label class="label">
                             <span class="label-text-alt"></span>
                             <span class="label-text-alt text-red-600">

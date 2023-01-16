@@ -26,9 +26,7 @@ class MobilController extends Controller
      */
     public function create()
     {
-        return view('mobil.create', [
-            'mobil' => Mobil::get(),
-        ]);
+        return view('mobil.create');
     }
 
     /**

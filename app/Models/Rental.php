@@ -36,6 +36,12 @@ class Rental extends Model
         return $this->belongsTo(Customer::class, 'nik', 'nik');
     }
 
+    // hasMany
+    public function haveDenda()
+    {
+        return $this->hasMany(Denda::class, 'kode_rental', 'kode_rental');
+    }
+
     // Validasi
     public function validateRental($request)
     {

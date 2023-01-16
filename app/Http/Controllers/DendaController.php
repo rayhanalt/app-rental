@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Denda;
+use App\Models\Mobil;
+use App\Models\Rental;
 use Illuminate\Http\Request;
 
 class DendaController extends Controller
@@ -14,7 +17,7 @@ class DendaController extends Controller
      */
     public function index()
     {
-        //
+        return view('denda.index');
     }
 
     /**
@@ -24,7 +27,9 @@ class DendaController extends Controller
      */
     public function create()
     {
-        //
+        return view('denda.create', [
+            'getRental' => Rental::get()
+        ]);
     }
 
     /**
@@ -33,9 +38,31 @@ class DendaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Denda $denda)
     {
-        //
+        $denda->validateDenda($request);
+
+        // mendapatkan durasi hari
+        $ambilRental = Rental::where('kode_rental', $request->kode_rental)->first();
+        $tanggal_kembali = $ambilRental->tanggal_kembali;
+        $kembaliParse = Carbon::parse($tanggal_kembali);
+        $tanggal_denda = Carbon::parse($request->tanggal_denda);
+        $days = $kembaliParse->diffInDays($tanggal_denda);
+
+        // mendapatkan harga sewa mobil
+
+        $harga = $ambilRental->getMobil->harga_sewa;
+
+        // menghitung total harga
+        $jumlah_denda = $days * $harga;
+
+        $denda = new Denda();
+        $denda->kode_rental = $request->kode_rental;
+        $denda->tanggal_denda = $request->tanggal_denda;
+        $denda->jumlah_denda = $jumlah_denda;
+        $denda->save();
+
+        return redirect('/denda')->with('success', 'New Data has been added!')->withInput();
     }
 
     /**
@@ -80,6 +107,13 @@ class DendaController extends Controller
      */
     public function destroy(Denda $denda)
     {
-        //
+        $denda->delete();
+        return redirect()->back()->with('success', 'Data has been deleted!');
+    }
+
+    public function getData($kode_rental)
+    {
+        $data = Rental::where('kode_rental', $kode_rental)->first();
+        return response()->json($data);
     }
 }

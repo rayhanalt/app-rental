@@ -17,7 +17,8 @@
                         <select class="select-bordered select" name="nik">
                             <option disabled selected>Pick one</option>
                             @foreach ($getCustomer as $customer)
-                                <option @if ($customer->nik == $item->nik) selected @endif value="{{ $customer->nik }}">
+                                <option {{ old('nik') == $customer->nik ? 'selected' : '' }}
+                                    @if ($customer->nik == $item->nik) selected @endif value="{{ $customer->nik }}">
                                     {{ $customer->nama }} | {{ $customer->nik }}</option>
                             @endforeach
                         </select>
@@ -38,7 +39,8 @@
                         <select class="select-bordered select" name="nopol">
                             <option disabled selected>Pick one</option>
                             @foreach ($getMobil as $mobil)
-                                <option @if ($mobil->nopol == $item->nopol) selected @endif value="{{ $mobil->nopol }}">
+                                <option {{ old('nopol') == $mobil->nopol ? 'selected' : '' }}
+                                    @if ($mobil->nopol == $item->nopol) selected @endif value="{{ $mobil->nopol }}">
                                     {{ $mobil->merk }} | {{ $mobil->model }} | {{ $mobil->nopol }}</option>
                             @endforeach
                         </select>

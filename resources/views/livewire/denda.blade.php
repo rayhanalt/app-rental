@@ -1,7 +1,7 @@
 <div>
     <div class="fixed top-[72px] bottom-2 right-2 left-2 flex flex-grow justify-between">
         <div>
-            <a href="/rental/create" class="btn-outline btn-success btn-sm btn">➕ Data</a>
+            <a href="/denda/create" class="btn-outline btn-success btn-sm btn">➕ Data</a>
         </div>
         <div>
             @include('layout.notif')
@@ -18,7 +18,8 @@
                 <th></th>
                 {{-- <th>Kode</th> --}}
                 <th>Kode Denda</th>
-                <th>Kode Rental</th>
+                <th>Data Rental</th>
+                <th>Tanggal Kembali</th>
                 <th>Tanggal Denda</th>
                 <th>Jumlah Denda</th>
                 <th>action</th>
@@ -30,7 +31,14 @@
                     <th>{{ $loop->iteration + $data->FirstItem() - 1 }}</th>
                     {{-- <td>{{ $item->kode_mobil }}</td> --}}
                     <td>{{ $item->kode_denda }}</td>
-                    <td>{{ $item->kode_rental }}</td>
+                    <td>
+                        <ul>
+                            <li>{{ $item->getRental->getMobil->nopol }}</li>
+                            <li>{{ $item->getRental->getCustomer->nama }}</li>
+                            <li>{{ 'Rp. ' . number_format($item->getRental->getMobil->harga_sewa, 0, ',', '.') }}</li>
+                        </ul>
+                    </td>
+                    <td>{{ date('d F Y', strtotime($item->getRental->tanggal_kembali)) }}</td>
                     <td>{{ date('d F Y', strtotime($item->tanggal_denda)) }}</td>
                     <td>{{ 'Rp. ' . number_format($item->jumlah_denda, 0, ',', '.') }}</td>
                     <td>

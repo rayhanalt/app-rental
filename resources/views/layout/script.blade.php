@@ -29,4 +29,15 @@
         reader.readAsDataURL(file);
     });
 </script>
+<script>
+    document.querySelector('select[name="kode_rental"]').addEventListener('change', function() {
+        const kode_rental = this.value;
+        fetch(`/denda/getData/${kode_rental}`)
+            .then(response => response.json())
+            .then(data => {
+                // do something with data, such as update input tanggal_kembali
+                document.querySelector('input[name="tanggal_kembali"]').value = data.tanggal_kembali;
+            })
+    });
+</script>
 @livewireScripts

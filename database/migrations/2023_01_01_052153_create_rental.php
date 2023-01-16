@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('rental', function (Blueprint $table) {
             $table->id();
             $table->string('kode_rental')->unique();
-            $table->integer('nik');
+            $table->bigInteger('nik');
             $table->string('nopol');
             $table->date('tanggal_rental');
             $table->date('tanggal_kembali');
